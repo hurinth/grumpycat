@@ -1,3 +1,5 @@
+package grumpycat;
+
 //Anton Udovichenko
 
 import java.io.BufferedInputStream;
@@ -10,21 +12,22 @@ import java.util.zip.ZipFile;
  
 public class Unzipper { 
     private final static int BUFFER_SIZE = 2048;
-    private final static String ZIP_FILE = "/home/anton/test/test.zip";
-    private final static String DESTINATION_DIRECTORY = "/home/anton/test/";
+//    private final static String ZIP_FILE = "/home/anton/test/test.zip";
+//    private final static String DESTINATION_DIRECTORY = "/home/anton/test/";
+    
     private final static String ZIP_EXTENSION = ".zip";
   
-    public static void main(String[] args) {
-     System.out.println("Trying to unzip file " + ZIP_FILE);
-        Unzipper unzip = new Unzipper(); 
-        if (unzip.unzipToFile(ZIP_FILE, DESTINATION_DIRECTORY)) {
-         System.out.println("Succefully unzipped to the directory "
-             + DESTINATION_DIRECTORY);
-        } else {
-         System.out.println("There was some error during extracting archive to the directory "
-             + DESTINATION_DIRECTORY);
-        }
-    }
+//    public static void main(String[] args) {
+//     System.out.println("Trying to unzip file " + ZIP_FILE);
+//        Unzipper unzip = new Unzipper(); 
+//        if (unzip.unzipToFile(ZIP_FILE, DESTINATION_DIRECTORY)) {
+//         System.out.println("Succefully unzipped to the directory "
+//             + DESTINATION_DIRECTORY);
+//        } else {
+//         System.out.println("There was some error during extracting archive to the directory "
+//             + DESTINATION_DIRECTORY);
+//        }
+//    }
  
  public boolean unzipToFile(String srcZipFileName,
    String destDirectoryName) {

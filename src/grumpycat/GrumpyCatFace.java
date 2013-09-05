@@ -1,19 +1,27 @@
+package grumpycat;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Wonka
  */
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
 public class GrumpyCatFace extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GrumpyCatFace
-     */
+    JFileChooser fileChooser;
+    Unzipper gpUnzipper;
+
     public GrumpyCatFace() {
         initComponents();
+        fileChooser = new JFileChooser();
+        this.setLocationRelativeTo(null);
+        filePathTxtLbl.setText(fileChooser.getCurrentDirectory().toString());
+        gpUnzipper = new Unzipper();
     }
 
     /**
@@ -26,16 +34,29 @@ public class GrumpyCatFace extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jTextField2 = new javax.swing.JTextField();
+        filePathTxtLbl = new javax.swing.JTextField();
+        browseButton = new javax.swing.JButton();
+        extractButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("GrumpyCat File Extractor");
 
-        jToggleButton1.setText("Browse");
+        filePathTxtLbl.setText("pathToZIPFolder");
 
-        jTextField2.setText("pathToZIPFolder");
+        browseButton.setText("Browse");
+        browseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseButtonActionPerformed(evt);
+            }
+        });
+
+        extractButton.setText("Extract Files");
+        extractButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                extractButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -48,25 +69,40 @@ public class GrumpyCatFace extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jToggleButton1))
+                        .addComponent(filePathTxtLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(browseButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(extractButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(23, 23, 23)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(filePathTxtLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jToggleButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(browseButton)
+                    .addComponent(extractButton))
                 .addContainerGap(101, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
+        fileChooser.showOpenDialog(GrumpyCatFace.this);
+        filePathTxtLbl.setText(fileChooser.getCurrentDirectory().toString());
+        
+        
+    }//GEN-LAST:event_browseButtonActionPerformed
+
+    private void extractButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractButtonActionPerformed
+        gpUnzipper.unzipToFile(null, null);
+    }//GEN-LAST:event_extractButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -103,8 +139,9 @@ public class GrumpyCatFace extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton browseButton;
+    private javax.swing.JButton extractButton;
+    private javax.swing.JTextField filePathTxtLbl;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
