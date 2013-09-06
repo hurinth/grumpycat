@@ -1,6 +1,9 @@
 package grumpycat;
 
-//Anton Udovichenko
+/**
+ * Most of the logic in this class was taken from a post by Anton Udovichenko
+ * at http://javadevtips.blogspot.com/2011/10/unzip-files.html
+ */
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -12,15 +15,29 @@ import java.util.zip.ZipFile;
  
 public class Unzipper { 
     private final static int BUFFER_SIZE = 2048;
-//    private final static String ZIP_FILE = "/home/anton/test/test.zip";
-//    private final static String DESTINATION_DIRECTORY = "/home/anton/test/";
-    
+    private final static String DESTINATION_DIRECTORY = "C:\\grumpycattest";
     private final static String ZIP_EXTENSION = ".zip";
+    
+    private static String zipFileLoc = "";
+
+    /**
+     * @return the location where to look for the zip file
+     */
+    public static String getZipFileLoc() {
+        return zipFileLoc;
+    }
+
+    /**
+     * @param aZipFileLoc the zipFileLocation to set
+     */
+    public static void setZipFileLoc(String aZipFileLoc) {
+        zipFileLoc = aZipFileLoc;
+    }
   
 //    public static void main(String[] args) {
-//     System.out.println("Trying to unzip file " + ZIP_FILE);
+//     System.out.println("Trying to unzip file " + zipFileLoc);
 //        Unzipper unzip = new Unzipper(); 
-//        if (unzip.unzipToFile(ZIP_FILE, DESTINATION_DIRECTORY)) {
+//        if (unzip.unzipToFile(zipFileLoc, DESTINATION_DIRECTORY)) {
 //         System.out.println("Succefully unzipped to the directory "
 //             + DESTINATION_DIRECTORY);
 //        } else {
@@ -89,5 +106,7 @@ public class Unzipper {
    e.printStackTrace();
    return false;
   }
- }
-}  
+  
+ }// End of unzipToFile
+ 
+}// End of class  
