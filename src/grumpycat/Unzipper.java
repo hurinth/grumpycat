@@ -1,112 +1,70 @@
 package grumpycat;
 
-/**
- * Most of the logic in this class was taken from a post by Anton Udovichenko
- * at http://javadevtips.blogspot.com/2011/10/unzip-files.html
- */
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
- 
-public class Unzipper { 
-    private final static int BUFFER_SIZE = 2048;
-    private final static String DESTINATION_DIRECTORY = "C:\\grumpycattest";
-    private final static String ZIP_EXTENSION = ".zip";
-    
-    private static String zipFileLoc = "";
+import sun.org.mozilla.javascript.regexp.SubString;
 
-    /**
-     * @return the location where to look for the zip file
-     */
-    public static String getZipFileLoc() {
-        return zipFileLoc;
-    }
+/**
+ * Most of the logic in this class was taken from a post by Anton Udovichenko at
+ * http://javadevtips.blogspot.com/2011/10/unzip-files.html
+ * http://www.avajava.com/tutorials/lessons/how-do-i-unzip-the-contents-of-a-zip-file.html?page=1
+ */
+public class Unzipper {
 
-    /**
-     * @param aZipFileLoc the zipFileLocation to set
-     */
-    public static void setZipFileLoc(String aZipFileLoc) {
-        zipFileLoc = aZipFileLoc;
+    protected boolean unZipThemAll(String filePath) {
+
+        File selectedFile = new File(filePath);
+
+        if (!selectedFile.isDirectory()) {
+            /* esta funcionando si el nombre de carpeta  destino es distinto al nombre 
+             * de una carpeta o archivo ya existente*/
+
+            String destDir = selectedFile.getPath();
+
+            destDir = destDir.substring(0, destDir.lastIndexOf("."));
+
+            logger("destDir is: " + destDir);
+
+            File destDirectory = new File(destDir);
+
+            try {
+
+                ZipFile zipFile = new ZipFile(selectedFile);
+                Enumeration<?> enu = zipFile.entries();
+
+                while (enu.hasMoreElements()) {
+                    ZipEntry zipEntry = (ZipEntry) enu.nextElement();
+
+                    String name = zipEntry.getName();//returns full path within the ZIP Folder
+                    long size = zipEntry.getSize();
+                    long compressedSize = zipEntry.getCompressedSize();
+                    System.out.printf("name: %-20s | size: %6d | compressed size: %6d\n",
+                            name, size, compressedSize);
+
+                    File file = new File(destDirectory, name);
+                    if (name.endsWith("/")) {
+                        file.mkdirs();
+                        continue;
+                    }
+                }
+
+            } catch (ZipException ex) {
+                Logger.getLogger(Unzipper.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Unzipper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return true;
+
+    }// END OF UNZIPTHEMALL
+
+    private void logger(Object l) {
+        System.out.println(l);
     }
-  
-//    public static void main(String[] args) {
-//     System.out.println("Trying to unzip file " + zipFileLoc);
-//        Unzipper unzip = new Unzipper(); 
-//        if (unzip.unzipToFile(zipFileLoc, DESTINATION_DIRECTORY)) {
-//         System.out.println("Succefully unzipped to the directory "
-//             + DESTINATION_DIRECTORY);
-//        } else {
-//         System.out.println("There was some error during extracting archive to the directory "
-//             + DESTINATION_DIRECTORY);
-//        }
-//    }
- 
- public boolean unzipToFile(String srcZipFileName,
-   String destDirectoryName) {
-  try {
-   BufferedInputStream bufIS = null;
-   // create the destination directory structure (if needed)
-   File destDirectory = new File(destDirectoryName);
-   destDirectory.mkdirs();
- 
-   // open archive for reading
-   File file = new File(srcZipFileName);
-   ZipFile zipFile = new ZipFile(file, ZipFile.OPEN_READ);
- 
-   //for every zip archive entry do
-   Enumeration<? extends ZipEntry> zipFileEntries = zipFile.entries();
-   while (zipFileEntries.hasMoreElements()) {
-    ZipEntry entry = (ZipEntry) zipFileEntries.nextElement();
-    System.out.println("\tExtracting entry: " + entry);
- 
-    //create destination file
-    File destFile = new File(destDirectory, entry.getName());
- 
-    //create parent directories if needed
-    File parentDestFile = destFile.getParentFile();   
-    parentDestFile.mkdirs();   
-     
-    if (!entry.isDirectory()) {
-     bufIS = new BufferedInputStream(
-       zipFile.getInputStream(entry));
-     int currentByte;
- 
-     // buffer for writing file
-     byte data[] = new byte[BUFFER_SIZE];
- 
-     // write the current file to disk
-     FileOutputStream fOS = new FileOutputStream(destFile);
-     BufferedOutputStream bufOS = new BufferedOutputStream(fOS, BUFFER_SIZE);
- 
-     while ((currentByte = bufIS.read(data, 0, BUFFER_SIZE)) != -1) {
-      bufOS.write(data, 0, currentByte);
-     }
- 
-     // close BufferedOutputStream
-     bufOS.flush();
-     bufOS.close();
- 
-     // recursively unzip files
-     if (entry.getName().toLowerCase().endsWith(ZIP_EXTENSION)) {
-      String zipFilePath = destDirectory.getPath() + File.separatorChar + entry.getName();
- 
-      unzipToFile(zipFilePath, zipFilePath.substring(0,
-              zipFilePath.length() - ZIP_EXTENSION.length()));
-     }
-    }
-   }
-   bufIS.close();
-   return true;
-  } catch (Exception e) {
-   e.printStackTrace();
-   return false;
-  }
-  
- }// End of unzipToFile
- 
-}// End of class  
+}// END OF CLASS

@@ -35,9 +35,9 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="browseButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBrowse" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="extractButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnExtract" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -52,8 +52,8 @@
               <Component id="filePathTxtLbl" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="browseButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="extractButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBrowse" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnExtract" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="101" max="32767" attributes="0"/>
           </Group>
@@ -71,20 +71,20 @@
         <Property name="text" type="java.lang.String" value="pathToZIPFolder"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="browseButton">
+    <Component class="javax.swing.JButton" name="btnBrowse">
       <Properties>
         <Property name="text" type="java.lang.String" value="Browse"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="browseButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrowseActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="extractButton">
+    <Component class="javax.swing.JButton" name="btnExtract">
       <Properties>
         <Property name="text" type="java.lang.String" value="Extract Files"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="extractButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExtractActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

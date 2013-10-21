@@ -1,13 +1,10 @@
 package grumpycat;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
- * @author Wonka
+ * @author Jose Pablo Méndez Soto
  */
+import java.io.File;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
@@ -18,7 +15,7 @@ public class GrumpyCatFace extends javax.swing.JFrame {
 
     public GrumpyCatFace() {
         initComponents();
-        initCustComponents();
+        initComponentsCustom();
     }
 
     /**
@@ -32,8 +29,8 @@ public class GrumpyCatFace extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         filePathTxtLbl = new javax.swing.JTextField();
-        browseButton = new javax.swing.JButton();
-        extractButton = new javax.swing.JButton();
+        btnBrowse = new javax.swing.JButton();
+        btnExtract = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,17 +38,17 @@ public class GrumpyCatFace extends javax.swing.JFrame {
 
         filePathTxtLbl.setText("pathToZIPFolder");
 
-        browseButton.setText("Browse");
-        browseButton.addActionListener(new java.awt.event.ActionListener() {
+        btnBrowse.setText("Browse");
+        btnBrowse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                browseButtonActionPerformed(evt);
+                btnBrowseActionPerformed(evt);
             }
         });
 
-        extractButton.setText("Extract Files");
-        extractButton.addActionListener(new java.awt.event.ActionListener() {
+        btnExtract.setText("Extract Files");
+        btnExtract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                extractButtonActionPerformed(evt);
+                btnExtractActionPerformed(evt);
             }
         });
 
@@ -69,9 +66,9 @@ public class GrumpyCatFace extends javax.swing.JFrame {
                         .addComponent(filePathTxtLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(browseButton)
+                        .addComponent(btnBrowse)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(extractButton)))
+                        .addComponent(btnExtract)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -82,32 +79,32 @@ public class GrumpyCatFace extends javax.swing.JFrame {
                 .addComponent(filePathTxtLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(browseButton)
-                    .addComponent(extractButton))
+                    .addComponent(btnBrowse)
+                    .addComponent(btnExtract))
                 .addContainerGap(101, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initCustComponents() {
+    private void initComponentsCustom() {
         fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         gpUnzipper = new Unzipper();
-        filePathTxtLbl.setText( fileChooser.getCurrentDirectory().toString() );
+        filePathTxtLbl.setText(fileChooser.getCurrentDirectory().toString());
         this.setLocationRelativeTo(null);
     }
-    
-    private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
-        fileChooser.showOpenDialog(GrumpyCatFace.this);
-        filePathTxtLbl.setText(fileChooser.getCurrentDirectory().toString());
-        gpUnzipper.setZipFileLoc( fileChooser.getSelectedFile().toString() );
-        gpUnzipper.unzipToFile(gpUnzipper.getZipFileLoc(), "C:\\grumpycattest");
-    }//GEN-LAST:event_browseButtonActionPerformed
 
-    private void extractButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractButtonActionPerformed
-        gpUnzipper.unzipToFile(null, null);
-    }//GEN-LAST:event_extractButtonActionPerformed
+    // buttons start here
+    private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
+        fileChooser.showOpenDialog(GrumpyCatFace.this);
+        filePathTxtLbl.setText(fileChooser.getSelectedFile().toString());
+        System.out.println(fileChooser.getSelectedFile().toString());
+    }//GEN-LAST:event_btnBrowseActionPerformed
+
+    private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
+        gpUnzipper.unZipThemAll(fileChooser.getSelectedFile().toString());
+    }//GEN-LAST:event_btnExtractActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,11 +141,9 @@ public class GrumpyCatFace extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton browseButton;
-    private javax.swing.JButton extractButton;
+    private javax.swing.JButton btnBrowse;
+    private javax.swing.JButton btnExtract;
     private javax.swing.JTextField filePathTxtLbl;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
-
-    
 }
