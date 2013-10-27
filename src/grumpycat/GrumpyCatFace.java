@@ -4,14 +4,12 @@ package grumpycat;
  *
  * @author Jose Pablo Méndez Soto
  */
-import java.io.File;
-import javax.swing.*;
-import javax.swing.filechooser.*;
+import javax.swing.JFileChooser;
 
 public class GrumpyCatFace extends javax.swing.JFrame {
 
     JFileChooser fileChooser;
-    Unzipper gpUnzipper;
+    GPExtractor gpUnzipper;
 
     public GrumpyCatFace() {
         initComponents();
@@ -90,7 +88,7 @@ public class GrumpyCatFace extends javax.swing.JFrame {
     private void initComponentsCustom() {
         fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        gpUnzipper = new Unzipper();
+        gpUnzipper = new GPExtractor();
         filePathTxtLbl.setText(fileChooser.getCurrentDirectory().toString());
         this.setLocationRelativeTo(null);
     }
@@ -99,11 +97,11 @@ public class GrumpyCatFace extends javax.swing.JFrame {
     private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
         fileChooser.showOpenDialog(GrumpyCatFace.this);
         filePathTxtLbl.setText(fileChooser.getSelectedFile().toString());
-        System.out.println(fileChooser.getSelectedFile().toString());
+        System.out.println("Selected file:" + fileChooser.getSelectedFile().toString());
     }//GEN-LAST:event_btnBrowseActionPerformed
 
     private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
-        gpUnzipper.unZipThemAll(fileChooser.getSelectedFile().toString());
+        gpUnzipper.extractThemAll(fileChooser.getSelectedFile().toString());
     }//GEN-LAST:event_btnExtractActionPerformed
 
     /**
