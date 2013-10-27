@@ -1,4 +1,4 @@
-package grumpycat;
+package logic;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -24,7 +24,7 @@ import java.util.zip.ZipFile;
 
 public class GPExtractor {
 
-    protected boolean extractThemAll(String filePath) {
+    public boolean extractThemAll(String filePath) {
 
         File selectedFile = new File(filePath);
 
