@@ -4,9 +4,10 @@ package grumpycat;
  *
  * @author Jose Pablo Méndez Soto
  */
+import javax.swing.ImageIcon;
 import logic.GPExtractor;
 import javax.swing.JFileChooser;
-import javax.swing.UIManager;
+import javax.swing.JOptionPane;
 
 public class GrumpyCatFace extends javax.swing.JFrame {
 
@@ -27,16 +28,16 @@ public class GrumpyCatFace extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         filePathTxtLbl = new javax.swing.JTextField();
         btnBrowse = new javax.swing.JButton();
         btnExtract = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuHelp = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        itemAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("GrumpyCat File Extractor");
-
-        filePathTxtLbl.setText("pathToZIPFolder");
+        setTitle("Grumpycat File Extractor");
 
         btnBrowse.setText("Browse");
         btnBrowse.addActionListener(new java.awt.event.ActionListener() {
@@ -52,15 +53,34 @@ public class GrumpyCatFace extends javax.swing.JFrame {
             }
         });
 
+        menuHelp.setText("Help");
+
+        jMenuItem2.setText("Help Contents");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuHelp.add(jMenuItem2);
+
+        itemAbout.setText("About");
+        itemAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAboutActionPerformed(evt);
+            }
+        });
+        menuHelp.add(itemAbout);
+
+        jMenuBar1.add(menuHelp);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(filePathTxtLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -74,14 +94,13 @@ public class GrumpyCatFace extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(23, 23, 23)
+                .addGap(38, 38, 38)
                 .addComponent(filePathTxtLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBrowse)
                     .addComponent(btnExtract))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
 
         pack();
@@ -106,6 +125,28 @@ public class GrumpyCatFace extends javax.swing.JFrame {
         gpUnzipper.extractThemAll(fileChooser.getSelectedFile().toString());
     }//GEN-LAST:event_btnExtractActionPerformed
 
+    private void itemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAboutActionPerformed
+        String description = "Grumpycat\nA tool for TAC engineers."
+                + "\nBy José Pablo Méndez Soto."
+                + "\njmendez2@cisco.com"
+                + "\nhttps://github.com/hurinth/grumpycat"
+                + "\n2013";
+        ImageIcon gcIcon = new ImageIcon(GrumpyCatFace.class.getResource("../media/gcp.jpg"));
+        JOptionPane.showMessageDialog(this, description,
+                "About this tool", JOptionPane.INFORMATION_MESSAGE, gcIcon);
+    }//GEN-LAST:event_itemAboutActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        String help = "Browse through your computer's filesystem and point to a"
+                + "\ndirectory where you already have several trace sets stored,"
+                + "\nor choose a .zip file directly."
+                + "\n\nGrumpycat **does not** extract the XML files that RTMT"
+                + "\ngenerates, and deletes the compressed txt.gz archives "
+                + "\nleaving only the useful traces that are pure text.";
+        JOptionPane.showMessageDialog(this, help,
+                "Help", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -116,14 +157,12 @@ public class GrumpyCatFace extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            UIManager.setLookAndFeel(
-            UIManager.getSystemLookAndFeelClassName());
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(GrumpyCatFace.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -146,6 +185,9 @@ public class GrumpyCatFace extends javax.swing.JFrame {
     private javax.swing.JButton btnBrowse;
     private javax.swing.JButton btnExtract;
     private javax.swing.JTextField filePathTxtLbl;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuItem itemAbout;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu menuHelp;
     // End of variables declaration//GEN-END:variables
 }
