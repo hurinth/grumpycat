@@ -31,6 +31,9 @@ public class GrumpyCatFace extends javax.swing.JFrame {
         filePathTxtLbl = new javax.swing.JTextField();
         btnBrowse = new javax.swing.JButton();
         btnExtract = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taOutput = new javax.swing.JTextArea();
+        lblUsage = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuHelp = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -52,6 +55,13 @@ public class GrumpyCatFace extends javax.swing.JFrame {
                 btnExtractActionPerformed(evt);
             }
         });
+
+        taOutput.setEditable(false);
+        taOutput.setColumns(20);
+        taOutput.setRows(5);
+        jScrollPane1.setViewportView(taOutput);
+
+        lblUsage.setText("Provide a path to a folder or ZIP file:");
 
         menuHelp.setText("Help");
 
@@ -80,27 +90,32 @@ public class GrumpyCatFace extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(filePathTxtLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnBrowse)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExtract)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1)
+                        .addComponent(filePathTxtLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(btnBrowse)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnExtract)))
+                    .addComponent(lblUsage))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
+                .addComponent(lblUsage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(filePathTxtLbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBrowse)
                     .addComponent(btnExtract))
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -122,7 +137,13 @@ public class GrumpyCatFace extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBrowseActionPerformed
 
     private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
-        gpUnzipper.extractThemAll(fileChooser.getSelectedFile().toString());
+        try {
+            gpUnzipper.extractThemAll(taOutput,fileChooser.getSelectedFile().toString());
+        } catch(NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "No file or folder selected yet."
+                    + "\nPlease use the Browse button",
+                    "Grumpycat Exception", JOptionPane.ERROR_MESSAGE, null);
+        }
     }//GEN-LAST:event_btnExtractActionPerformed
 
     private void itemAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAboutActionPerformed
@@ -188,6 +209,9 @@ public class GrumpyCatFace extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemAbout;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblUsage;
     private javax.swing.JMenu menuHelp;
+    private javax.swing.JTextArea taOutput;
     // End of variables declaration//GEN-END:variables
 }

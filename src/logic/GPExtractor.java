@@ -14,6 +14,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
+import javax.swing.JTextArea;
 
 /**
  * Most of the logic in this class was taken from the following pages:
@@ -21,19 +22,18 @@ import java.util.zip.ZipFile;
  * http://www.avajava.com/tutorials/lessons/how-do-i-unzip-the-contents-of-a-zip-file.html?page=1
  * http://commons.apache.org/proper/commons-compress/examples.html
  */
-
 public class GPExtractor {
 
-    public boolean extractThemAll(String filePath) {
+    public boolean extractThemAll(JTextArea outputW, String filePath) {
 
         File selectedFile = new File(filePath);
 
         if (selectedFile.isDirectory()) {
-            
-            for(File child : selectedFile.listFiles()){
-                extractThemAll(child.toString());
+
+            for (File child : selectedFile.listFiles()) {
+                extractThemAll(outputW, child.toString());
             }
-            
+
         } else if (filePath.endsWith(".txt.gz")) {
 
             /**
@@ -62,10 +62,9 @@ public class GPExtractor {
                     // avoid extracting unnecessary XML files
                     if (!zipEntry.toString().endsWith(".xml")) {
                         String name = zipEntry.getName();//returns full path within the ZIP Folder
-//                        long size = zipEntry.getSize();
-//                        long compressedSize = zipEntry.getCompressedSize();
-//                    System.out.printf("name: %-20s | size: %6d | compressed size: %6d\n",
-//                            name, size, compressedSize);
+                        long size = zipEntry.getSize();
+                        long compressedSize = zipEntry.getCompressedSize();
+                        outputW.append("extracting: " + name + "size: " + size + "compressed size" + compressedSize+"\n");
 
                         File extractedFile = new File(destDirectory, name);
                         if (name.endsWith("/")) {
