@@ -14,7 +14,6 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
-import javax.swing.JTextArea;
 
 /**
  * Most of the logic in this class was taken from the following pages:
@@ -24,14 +23,14 @@ import javax.swing.JTextArea;
  */
 public class GCExtractor {
 
-    public boolean extractThemAll(JTextArea outputW, String filePath) {
+    public boolean extractThemAll(String filePath) {
 
         File selectedFile = new File(filePath);
 
         if (selectedFile.isDirectory()) {
 
             for (File child : selectedFile.listFiles()) {
-                extractThemAll(outputW, child.toString());
+                extractThemAll(child.toString());
             }
 
         } else if (filePath.endsWith(".txt.gz")) {
@@ -64,7 +63,6 @@ public class GCExtractor {
                         String name = zipEntry.getName();//returns full path within the ZIP Folder
                         long size = zipEntry.getSize();
                         long compressedSize = zipEntry.getCompressedSize();
-                        outputW.append("extracting: " + name + "size: " + size + "compressed size" + compressedSize+"\n");
 
                         File extractedFile = new File(destDirectory, name);
                         if (name.endsWith("/")) {
