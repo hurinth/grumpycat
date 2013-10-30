@@ -22,7 +22,19 @@ import javax.swing.JTextArea;
  * http://www.avajava.com/tutorials/lessons/how-do-i-unzip-the-contents-of-a-zip-file.html?page=1
  * http://commons.apache.org/proper/commons-compress/examples.html
  */
-public class GPExtractor {
+public class GCExtractor extends Thread {
+
+    private javax.swing.JTextArea outputW;
+    private String filePath;
+
+    public GCExtractor(javax.swing.JTextArea outputW, String filePath) {
+        this.outputW = outputW;
+        this.filePath = filePath;
+    }
+
+    public void run() {
+        extractThemAll(outputW, filePath);
+    }
 
     public boolean extractThemAll(JTextArea outputW, String filePath) {
 
@@ -64,7 +76,7 @@ public class GPExtractor {
                         String name = zipEntry.getName();//returns full path within the ZIP Folder
                         long size = zipEntry.getSize();
                         long compressedSize = zipEntry.getCompressedSize();
-                        outputW.append("extracting: " + name + "size: " + size + "compressed size" + compressedSize+"\n");
+                        outputW.append("extracting: " + name + "\n");
 
                         File extractedFile = new File(destDirectory, name);
                         if (name.endsWith("/")) {
@@ -85,9 +97,9 @@ public class GPExtractor {
                 }//END OF ITERATION THROUGH THE ZIP CONTAINER
                 zipFile.close();
             } catch (ZipException ex) {
-                Logger.getLogger(GPExtractor.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GCExtractor.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                Logger.getLogger(GPExtractor.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GCExtractor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return true;
@@ -111,12 +123,12 @@ public class GPExtractor {
             is.close();
             fos.close();
         } catch (IOException ex) {
-            Logger.getLogger(GPExtractor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GCExtractor.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 is.close();
             } catch (IOException ex) {
-                Logger.getLogger(GPExtractor.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GCExtractor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

@@ -5,14 +5,14 @@ package grumpycat;
  * @author Jose Pablo Méndez Soto
  */
 import javax.swing.ImageIcon;
-import logic.GPExtractor;
+import logic.GCExtractor;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class GrumpyCatFace extends javax.swing.JFrame {
 
     JFileChooser fileChooser;
-    GPExtractor gpUnzipper;
+    GCExtractor gcExtractor;
 
     public GrumpyCatFace() {
         initComponents();
@@ -124,7 +124,7 @@ public class GrumpyCatFace extends javax.swing.JFrame {
     private void initComponentsCustom() {
         fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        gpUnzipper = new GPExtractor();
+//        gcExtractor = new GCExtractor();
         filePathTxtLbl.setText(fileChooser.getCurrentDirectory().toString());
         this.setLocationRelativeTo(null);
     }
@@ -138,7 +138,9 @@ public class GrumpyCatFace extends javax.swing.JFrame {
 
     private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
         try {
-            gpUnzipper.extractThemAll(taOutput,fileChooser.getSelectedFile().toString());
+//            gcExtractor.extractThemAll(taOutput,fileChooser.getSelectedFile().toString());
+            gcExtractor = new GCExtractor(taOutput,fileChooser.getSelectedFile().toString());
+            gcExtractor.start();
         } catch(NullPointerException e) {
             JOptionPane.showMessageDialog(this, "No file or folder selected yet."
                     + "\nPlease use the Browse button",
