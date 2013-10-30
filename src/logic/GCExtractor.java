@@ -22,19 +22,7 @@ import javax.swing.JTextArea;
  * http://www.avajava.com/tutorials/lessons/how-do-i-unzip-the-contents-of-a-zip-file.html?page=1
  * http://commons.apache.org/proper/commons-compress/examples.html
  */
-public class GCExtractor extends Thread {
-
-    private javax.swing.JTextArea outputW;
-    private String filePath;
-
-    public GCExtractor(javax.swing.JTextArea outputW, String filePath) {
-        this.outputW = outputW;
-        this.filePath = filePath;
-    }
-
-    public void run() {
-        extractThemAll(outputW, filePath);
-    }
+public class GCExtractor {
 
     public boolean extractThemAll(JTextArea outputW, String filePath) {
 
@@ -76,7 +64,7 @@ public class GCExtractor extends Thread {
                         String name = zipEntry.getName();//returns full path within the ZIP Folder
                         long size = zipEntry.getSize();
                         long compressedSize = zipEntry.getCompressedSize();
-                        outputW.append("extracting: " + name + "\n");
+                        outputW.append("extracting: " + name + "size: " + size + "compressed size" + compressedSize+"\n");
 
                         File extractedFile = new File(destDirectory, name);
                         if (name.endsWith("/")) {

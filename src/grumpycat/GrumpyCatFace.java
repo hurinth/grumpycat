@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 public class GrumpyCatFace extends javax.swing.JFrame {
 
     JFileChooser fileChooser;
-    GCExtractor gcExtractor;
+    GCExtractor gpUnzipper;
 
     public GrumpyCatFace() {
         initComponents();
@@ -124,7 +124,7 @@ public class GrumpyCatFace extends javax.swing.JFrame {
     private void initComponentsCustom() {
         fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-//        gcExtractor = new GCExtractor();
+        gpUnzipper = new GCExtractor();
         filePathTxtLbl.setText(fileChooser.getCurrentDirectory().toString());
         this.setLocationRelativeTo(null);
     }
@@ -138,9 +138,7 @@ public class GrumpyCatFace extends javax.swing.JFrame {
 
     private void btnExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtractActionPerformed
         try {
-//            gcExtractor.extractThemAll(taOutput,fileChooser.getSelectedFile().toString());
-            gcExtractor = new GCExtractor(taOutput,fileChooser.getSelectedFile().toString());
-            gcExtractor.start();
+            gpUnzipper.extractThemAll(taOutput,fileChooser.getSelectedFile().toString());
         } catch(NullPointerException e) {
             JOptionPane.showMessageDialog(this, "No file or folder selected yet."
                     + "\nPlease use the Browse button",
